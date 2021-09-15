@@ -1,6 +1,12 @@
 # MERN Stack Template
 
-This template contains basic feature about NodeJS, ExpressJS, MongoDB React 17, Redux Webpack 5, Babel, ESlint... for my personal purpose only.
+This template contains basic feature about:
+
+Server: NodeJS, ExpressJS, MongoDB...
+
+Client: React 17, Redux Webpack 5, Babel, ESlint...
+
+for my personal purpose only
 
 ## Installation
 
