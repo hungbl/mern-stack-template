@@ -1,25 +1,20 @@
 const jwt = require('jsonwebtoken')
 
-const auth = (req, res, callback) => {
+const auth = (req, res, next) => {
     const token = req.header('x-auth-token')
 
-    if (!token) {
-        return res.status(401)
-            .json({ message: 'token not found, authorization denied' })
-    }
+    if (!token) return res.status(401).json({ message: 'Token not found, authorization denied' })
 
     try {
         jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
-            if (error) return res.status(401)
-                .json({ message: 'token invalid' })
+            if (error) return res.status(401).json({ message: 'Token invalid' })
 
             req.user = decoded.user
-            callback()
+            next()
         })
     } catch (error) {
-        console.log(`something wrong with auth middleware ${error}`)
-        res.status(500)
-            .json({ message: `server error` })
+        console.log(`Something wrong with auth middleware ${error}`)
+        res.status(500).json({ message: `server error` })
     }
 }
 

@@ -10,5 +10,9 @@ app.use(cookieParser())
 
 // simple route
 app.use('/api/health-check', require('./routers/health-check'))
+app.use('/api/users', require('./routers/users'))
+app.use('/api/auth', require('./routers/auth'))
+app.use('/api/profile', require('./routers/profile'))
+app.use('/api/post', require('./routers/posts'))
 
 module.exports = app
