@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import App from './app'
 import rootReducer from './slices'
 
-import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const store = configureStore({
     reducer: rootReducer
