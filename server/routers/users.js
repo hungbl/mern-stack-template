@@ -18,9 +18,8 @@ router.post('/',
 
         const { name, email, password } = req.body
         try {
-            let user = userSchema.findOne({ email })
-
-            if (!user) return res.status(400).json({ errors: [{ message: 'User already exists' }] })
+            let user = await userSchema.findOne({ email })
+            if (user) return res.status(400).json({ errors: [{ message: 'User already exists' }] })
 
             const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
             user = new userSchema({ name, email, avatar, password })

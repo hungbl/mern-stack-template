@@ -1,15 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { authSelector } from '../slices/auth'
 
 const Dashboard = () => {
+    const { authenticated, user } = useSelector(authSelector)
     return (
         <section>
             <h1>Dashboard</h1>
-            <p>This is the dashboard.</p>
-
-            <Link to="/posts" className="button">
-                View Posts
-            </Link>
+            {
+                authenticated && user
+                    ? <p>Welcome {user.name} your email is {user.email}</p>
+                    : <p>This is the dashboard.</p>
+            }
         </section>
     )
 }

@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
+import api from '../utils/api'
+import { getUser } from './auth'
 
 export const initialState = {
     loading: false,
     hasErrors: false,
-    message: [],
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    validated: false,
+    messages: [],
+    name: 'hungbl',
+    email: 'abc@gmail.com',
+    password: '123456',
+    confirmPassword: '123456'
 }
 
 const registerSlice = createSlice({
@@ -19,13 +22,13 @@ const registerSlice = createSlice({
         },
 
         saveUserError: (state, action) => {
-            let { message } = state
-            message = message.unshift(action.payload)
-            return { ...state, loading: false, hasErrors: true, message }
+            let { messages } = state
+            messages = [...messages, ...action.payload]
+            return { ...state, loading: false, hasErrors: true, messages }
         },
 
         changeUsername: (state, action) => {
-            return { ...state, username: action.payload }
+            return { ...state, name: action.payload }
         },
 
         changeEmail: (state, action) => {
@@ -39,26 +42,36 @@ const registerSlice = createSlice({
         changeConfirmPassword: (state, action) => {
             return { ...state, confirmPassword: action.payload }
         },
+
+        validatedInput: (state) => {
+            return { ...state, validated: true }
+        }
     }
 })
 
 export const { changeUsername, changeEmail, changePassword,
-    changeConfirmPassword, saveUser, saveUserError } = registerSlice.actions
+    changeConfirmPassword, saveUser, saveUserError, validatedInput } = registerSlice.actions
 
-export const registerSelector = (state) => state
+export const registerSelector = (state) => state.register
 
 export default registerSlice.reducer
 
-export function createUser(state) {
+export function createUser(payload) {
     return async (dispatch) => {
         dispatch(saveUser())
 
-        const { username, email, password, confirmPassword } = state
-        if (password !== confirmPassword) {
-            dispatch(saveUserError())
+        try {
+            const { name, email, password } = payload
+            const res = await api.post('/users', { name, email, password })
+            if (res && res.data && res.data.token) {
+                dispatch(getUser(res.data.token))
+            }
+
+        } catch (err) {
+            const { response: { data: { errors } } } = err
+            dispatch(saveUserError(errors))
         }
 
-        console.log(`Create user ${username} email ${email} password ${password}`)
     }
 }
 

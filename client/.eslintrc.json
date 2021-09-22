@@ -31,7 +31,8 @@
       "semi": [1, "never"],
       "import/no-extraneous-dependencies": ["off", { "devDependencies": false }],
       "react/prop-types": "off",
-      "no-unused-vars": 0
+      "no-unused-vars": 0,
+      "no-debugger": 0
     },
     "env": {
       "browser": true,
