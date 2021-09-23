@@ -18,7 +18,7 @@ router.get('/me', auth, async (req, res) => {
         return res.json({ profile })
     } catch (error) {
         console.error(error.message)
-        res.status(500).send('Server Error')
+        res.status(500).json({errors: [{message: 'Server Error'}]})
     }
 })
 
@@ -50,7 +50,7 @@ router.post('/',
             return res.json(profile)
         } catch (error) {
             console.error(error.message)
-            res.status(500).send('Server Error')
+            res.status(500).json({errors: [{message: 'Server Error'}]})
         }
 
     })
@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
         res.json(profiles)
     } catch (error) {
         console.error(error.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({errors: [{message: 'Server Error'}]});
     }
 })
 
@@ -74,7 +74,7 @@ router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
         return res.json(profile)
     } catch (error) {
         console.error(error.message)
-        res.status(500).send('Server Error')
+        res.status(500).json({errors: [{message: 'Server Error'}]})
     }
 })
 
@@ -88,7 +88,7 @@ router.delete('/', auth, async (req, res) => {
         res.json({ message: '' })
     } catch (error) {
         console.error(error.message)
-        res.status(500).send('Server Error')
+        res.status(500).json({errors: [{message: 'Server Error'}]})
     }
 })
 
@@ -113,7 +113,7 @@ router.put('/experience',
             res.json(profile);
         } catch (error) {
             console.error(error.message)
-            res.status(500).send('Server Error')
+            res.status(500).json({errors: [{message: 'Server Error'}]})
         }
     })
 
@@ -128,7 +128,7 @@ router.delete('experience/:exp_id', auth, async (req, res) => {
         return res.status(200).json(profile);
     } catch (error) {
         console.error(error.message)
-        res.status(500).send('Server Error')
+        res.status(500).json({errors: [{message: 'Server Error'}]})
     }
 })
 
@@ -155,7 +155,7 @@ router.put('/education',
 
         } catch (error) {
             console.error(error.message)
-            res.status(500).send('Server Error')
+            res.status(500).json({errors: [{message: 'Server Error'}]})
         }
     })
 

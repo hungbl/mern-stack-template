@@ -18,8 +18,12 @@ router.post('/',
 
         const { name, email, password } = req.body
         try {
+            // let user = await userSchema.find({ $or:[ {email}, {name} ]})
             let user = await userSchema.findOne({ email })
-            if (user) return res.status(400).json({ errors: [{ message: 'User already exists' }] })
+            if (user) return res.status(400).json({ errors: [{ message: 'Email already exists' }] })
+
+            user = await userSchema.findOne({ name })
+            if (user) return res.status(400).json({ errors: [{ message: 'Username already exists' }] })
 
             const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
             user = new userSchema({ name, email, avatar, password })
@@ -37,7 +41,7 @@ router.post('/',
             })
         } catch (error) {
             console.error(error.message)
-            res.status(500).send('Server Error')
+            res.status(500).json({errors: [{message: 'Server Error'}]})
         }
     })
 

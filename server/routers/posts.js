@@ -27,7 +27,7 @@ router.post('/', auth,
             res.json(post)
         } catch (error) {
             console.error(err.message);
-            res.status(500).send('Server Error');
+            res.status(500).json({errors: [{message: 'Server Error'}]});
         }
     })
 
@@ -37,7 +37,7 @@ router.get('/', auth, async (req, res) => {
         res.json({ posts });
     } catch (error) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({errors: [{message: 'Server Error'}]});
     }
 })
 
@@ -51,7 +51,7 @@ router.get('/:id', auth, async (req, res) => {
 
     } catch (error) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({errors: [{message: 'Server Error'}]});
     }
 })
 
@@ -67,7 +67,7 @@ router.delete('/:id', auth, async (req, res) => {
         res.json({ message: 'Post removed' });
     } catch (error) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({errors: [{message: 'Server Error'}]});
     }
 })
 
@@ -81,7 +81,7 @@ router.put('/like/:id', auth, async (req, res) => {
         res.json(post.likes)
     } catch (error) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({errors: [{message: 'Server Error'}]});
     }
 })
 
@@ -95,7 +95,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
         res.json(post.likes)
     } catch (error) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({errors: [{message: 'Server Error'}]});
     }
 })
 
@@ -121,7 +121,7 @@ router.post('/comment/:id', auth,
             res.json(post.comments)
         } catch (error) {
             console.error(err.message);
-            res.status(500).send('Server Error');
+            res.status(500).json({errors: [{message: 'Server Error'}]});
         }
     })
 
@@ -140,7 +140,7 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
         return res.json(post.comments);
     } catch (err) {
         console.error(err.message);
-        return res.status(500).send('Server Error');
+        return res.status(500).json({errors: [{message: 'Server Error'}]});
     }
     });
 

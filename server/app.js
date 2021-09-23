@@ -12,7 +12,6 @@ app.use(cookieParser())
 app.use('/api/health-check', require('./routers/health-check'))
 app.use('/api/users', require('./routers/users'))
 app.use('/api/auth', require('./routers/auth'))
-app.use('/api/profile', require('./routers/profile'))
-app.use('/api/post', require('./routers/posts'))
+app.use('/api/league', require('./routers/league'))
 
 module.exports = app
