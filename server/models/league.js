@@ -22,7 +22,15 @@ const leagueSchema = new mongoose.Schema({
             type: String,
             require: true
         }
-    }
+    },
+    joins: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        },
+        score: Number,
+        position: Number
+    }],
 })
 
 module.exports = mongoose.model('league', leagueSchema)
