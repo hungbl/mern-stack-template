@@ -7,6 +7,7 @@ import PrivateRoute from './components/router/private-router'
 import PublicRoute from './components/router/public-router'
 import Register from './views/register'
 import Login from './views/login'
+import Predict from './views/predict'
 import { getUser } from './slices/auth'
 
 const App = () => {
@@ -25,7 +26,11 @@ const App = () => {
                 <PublicRoute exact path='/login' component={Login} />
                 <Layout>
                     <Switch>
-                        <PrivateRoute exact path="/" component={Dashboard} />
+                        <Route exact path="/" component={Dashboard} />
+                        <Route exact path="/league/:id" component={Dashboard} />
+                        <Route exact path="/match/:leagueId/:matchId" component={Dashboard} />
+                        <Route exact path="/round/:leagueId/:matchId" component={Dashboard} />
+                        <PrivateRoute exact path="/predict" component={Predict} />
                     </Switch>
                 </Layout>
             </Switch>
