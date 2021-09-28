@@ -2,11 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Dashboard from './views/dashboard'
-import Posts from './views/posts'
-import NavBar from './components/navbar'
+import Layout from './components/layout'
+import PrivateRoute from './components/router/private-router'
+import PublicRoute from './components/router/public-router'
 import Register from './views/register'
+import Login from './views/login'
 import { getUser } from './slices/auth'
-import { setAuthToken } from './utils/api'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -19,12 +20,14 @@ const App = () => {
     }, [dispatch])
     return (
         <Router>
-            <NavBar />
             <Switch>
-                <Route exact path="/" component={Dashboard} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/login' component={Dashboard} />
-                <Route exact path="/posts" component={Posts} />
+                <PublicRoute exact path='/register' component={Register} />
+                <PublicRoute exact path='/login' component={Login} />
+                <Layout>
+                    <Switch>
+                        <PrivateRoute exact path="/" component={Dashboard} />
+                    </Switch>
+                </Layout>
             </Switch>
         </Router>
     )

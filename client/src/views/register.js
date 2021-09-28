@@ -36,7 +36,7 @@ const Register = () => {
     return (
         <Container fluid>
             <Row>
-                <Col md={{ span: 6, offset: 3 }}>
+                <Col md={{ span: 4, offset: 4 }}>
                     <h1>Register to start predict now!</h1>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
